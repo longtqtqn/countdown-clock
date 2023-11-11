@@ -1,18 +1,22 @@
 import { Button, InputNumber, Row, Col } from "antd";
 import React, { useState, useEffect } from "react";
 import "./styles.css";
+import ringer from "../../../public/success-fanfare-trumpets-6185.mp3";
+
 const CountdownTimer: React.FC = () => {
   const [isRunning, setIsRunning] = useState<boolean>(false);
   const [hours, setHours] = useState<number>(0);
   const [minutes, setMinutes] = useState<number>(0);
   const [seconds, setSeconds] = useState<number>(0);
-
+  const audio = new Audio(ringer);
   useEffect(() => {
     const interval = setInterval(() => {
       if (isRunning) {
         if (seconds > 0) {
           if (seconds == 1 && minutes == 0 && hours == 0) {
             setIsRunning(false);
+            audio.loop = false;
+            audio.play();
           }
           setSeconds((seconds) => seconds - 1);
         } else if (minutes > 0) {
@@ -52,27 +56,37 @@ const CountdownTimer: React.FC = () => {
           </Button>
         </Col>
         <Col flex={3}>
-          <InputNumber
-            disabled={isRunning}
-            min={0}
-            max={24}
-            value={hours}
-            onChange={onChangeHour}
-          ></InputNumber>
-          <InputNumber
-            disabled={isRunning}
-            min={0}
-            max={59}
-            value={minutes}
-            onChange={onChangeMinute}
-          ></InputNumber>
-          <InputNumber
-            disabled={isRunning}
-            min={0}
-            max={59}
-            value={seconds}
-            onChange={onChangeSecond}
-          ></InputNumber>
+          <Row>
+            <Col flex={3}>
+              <InputNumber
+                disabled={isRunning}
+                min={0}
+                max={24}
+                value={hours}
+                onChange={onChangeHour}
+              ></InputNumber>
+            </Col>
+            <p className="colon">:</p>
+            <Col flex={3}>
+              <InputNumber
+                disabled={isRunning}
+                min={0}
+                max={59}
+                value={minutes}
+                onChange={onChangeMinute}
+              ></InputNumber>
+            </Col>
+            <p className="colon">:</p>
+            <Col flex={3}>
+              <InputNumber
+                disabled={isRunning}
+                min={0}
+                max={59}
+                value={seconds}
+                onChange={onChangeSecond}
+              ></InputNumber>
+            </Col>
+          </Row>
         </Col>
       </Row>
     </>

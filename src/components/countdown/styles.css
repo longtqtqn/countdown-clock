@@ -2,12 +2,16 @@
     background-color: #f5f5f5; /* Màu nền khi bị disable */
     color: green;
     font-size: 140px;
-    width: 150px;
+    width: 185px;
   }
 
 .buttonStart {
     display: flex;
     height: fit-content;
     width: fit-content;
-    font-size: 50px;
+    font-size: 60px;
+}
+
+.colon {
+  font-size: 68px;
 }
