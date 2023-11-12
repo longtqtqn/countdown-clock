@@ -1,7 +1,7 @@
 import { Button, InputNumber, Row, Col } from "antd";
 import React, { useState, useEffect } from "react";
 import "./styles.css";
-import ringer from "../../../public/success-fanfare-trumpets-6185.mp3";
+import ringer from "../../assets/sounds/success-fanfare-trumpets-6185.mp3";
 
 const CountdownTimer: React.FC = () => {
   const [isRunning, setIsRunning] = useState<boolean>(false);
@@ -49,8 +49,8 @@ const CountdownTimer: React.FC = () => {
   };
   return (
     <>
-      <Row>
-        <Col flex={2}>
+      <Row gutter={26}>
+        <Col flex={2} className="colStart">
           <Button className="buttonStart" onClick={handleClick}>
             {!isRunning ? "Start" : "Pause"}
           </Button>
