@@ -47,39 +47,64 @@ const CountdownTimer: React.FC = () => {
   const onChangeSecond = (value: any) => {
     setSeconds(value);
   };
+  const handleWheelSecond = (e: React.WheelEvent<HTMLInputElement>) => {
+    let tmpSeconds = seconds + (e.deltaY > 0 ? -1 : 1);
+    tmpSeconds = ((tmpSeconds % 60) + 60) % 60;
+    setSeconds(tmpSeconds);
+  };
+  const handleWheelMinute = (e: React.WheelEvent<HTMLInputElement>) => {
+    let tmpMinutes = minutes + (e.deltaY > 0 ? -1 : 1);
+    tmpMinutes = ((tmpMinutes % 60) + 60) % 60;
+    setMinutes(tmpMinutes);
+  };
+  const handleWheelHour = (e: React.WheelEvent<HTMLInputElement>) => {
+    let tmpHours = hours + (e.deltaY > 0 ? -1 : 1);
+    tmpHours = ((tmpHours % 24) + 24) % 24;
+    setHours(tmpHours);
+  };
   return (
     <>
-      <Row gutter={26}>
-        <Col flex={2} className="colStart">
-          <Button className="buttonStart" onClick={handleClick}>
+      <Row gutter={16} justify="center">
+        <Col flex={2} className="col-start">
+          <Button className="button-start" onClick={handleClick}>
             {!isRunning ? "Start" : "Pause"}
           </Button>
         </Col>
         <Col flex={3}>
           <Row>
-            <Col flex={3}>
+            <Col flex={3} className="input-col">
               <InputNumber
                 disabled={isRunning}
+                formatter={(value) => `${value}`.padStart(2, "0")}
+                onWheel={handleWheelHour}
                 min={0}
                 max={24}
                 value={hours}
                 onChange={onChangeHour}
               ></InputNumber>
             </Col>
-            <p className="colon">:</p>
-            <Col flex={3}>
+            <Col className="time-separator-container">
+              <span className="time-separator">:</span>
+            </Col>
+            <Col flex={3} className="input-col">
               <InputNumber
                 disabled={isRunning}
+                formatter={(value) => `${value}`.padStart(2, "0")}
+                onWheel={handleWheelMinute}
                 min={0}
                 max={59}
                 value={minutes}
                 onChange={onChangeMinute}
               ></InputNumber>
             </Col>
-            <p className="colon">:</p>
-            <Col flex={3}>
+            <Col className="time-separator-container">
+              <span className="time-separator">:</span>
+            </Col>
+            <Col flex={3} className="input-col">
               <InputNumber
                 disabled={isRunning}
+                formatter={(value) => `${value}`.padStart(2, "0")}
+                onWheel={handleWheelSecond}
                 min={0}
                 max={59}
                 value={seconds}
